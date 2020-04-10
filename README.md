@@ -1,17 +1,10 @@
-OpenLDAP for OpenShift - Docker images
-========================================
-DISCLAIMER - IMAGES ONLY FOR INTERNAL TESTING OF ORIGIN REPOSITORY
-==================================================================
+# CIP Openldap for Openshift
 
-This repository contains Dockerfiles for OpenLDAP images for OpenShift testing.
-Images are based on CentOS. Images are **NOT** meant to be used for LDAP servers in
-any environment other than the OpenShift Origin test environment at this time. No
-guarantees are given for the efficacy or stability of images in this repository or
-those created with Dockerfiles from this repository.
+This repo is a fork of [OpenLdap for openshift](https://github.com/openshift/openldap)
 
-If you are working on developing this image, refer to [the hacking document](HACKING.md) 
-for detailed discussion of deploying OpenLDAP as a Docker container under OpenShift.
+## Description
 
+As explain in hack folder, non root user can't update OpenLdap base config on container startup. The solution use by base repository is to let root user update the config on startup. For non root user a base LDAP config is put on the image and user can't modify it. To allow base configuration update we changed the Dockerfile. During image build everybody can be root so we can update the base LDAP config. So all the configuration you will see below can be done during build for everybody or during startup for root user.
 
 Versions
 ---------------
@@ -36,7 +29,7 @@ Environment variables and volumes
 ----------------------------------
 
 The image recognizes the following environment variables that you can set during
-initialization by passing `-e VAR=VALUE` to the Docker `run` command.
+initialization or image build by passing `-e VAR=VALUE` to the Docker `run` command.
 
 | Variable name              | Description                               | Default                   |
 | :------------------------- | ----------------------------------------- | ------------------------- |
